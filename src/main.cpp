@@ -3,9 +3,14 @@
 #include <iostream> 
 
 void draw_rectangle_fill(SDL_Renderer* renderer, const SDL_Rect& rectangle, const SDL_Color& color);
+int startRatioEr();
 
 int main(int argc, char* argv[])
 {
+    startRatioEr();
+}
+
+int startRatioEr(){
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());
@@ -18,7 +23,6 @@ int main(int argc, char* argv[])
     auto Width = DM.w;
     auto Height = DM.h;
     int xMouse, yMouse;
-    // SDL_Window* SDL_CreateWindow(const char* title, int x, int y, int w, int h, Uint32 flags)
     if (SDL_CreateWindowAndRenderer(Width, Height, SDL_WINDOW_BORDERLESS | SDL_WINDOW_SHOWN, &pWindow, &pRenderer) < 0)
     {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());        
