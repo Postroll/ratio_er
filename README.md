@@ -1,3 +1,5 @@
 sudo apt-get update && sudo apt-get upgrade
 sudo apt-get install libsdl2-dev
-g++ src/main.cpp -o bin/ratio-er -lSDL2main -lSDL2 && bin/pratio-er
+sudo apt-get install libsdl2-ttf-dev
+sudo apt install libx11-dev    
+g++ src/main.cpp -o bin/prog -lSDL2main -lSDL2 -lSDL2_ttf -L/usr/X11/lib -lX11 && bin/prog
