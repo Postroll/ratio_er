@@ -6,6 +6,7 @@
 #include <string>
 #include <X11/Xlib.h>
 #include "X11/keysym.h"
+#include <unistd.h>
 
 void draw_rectangle_fill(SDL_Renderer* renderer, const SDL_Rect& rectangle, const SDL_Color& color);
 void mousePress(SDL_MouseButtonEvent& b, int& xMouse, int& yMouse);
@@ -59,6 +60,7 @@ int main(int argc, char* argv[])
         }
         if (!pressed)
             flag = 0;
+        usleep(50);
     }
 }
 
@@ -175,8 +177,8 @@ void renderLine(SDL_Renderer *renderer, TTF_Font* Sans){
                 const int y = line.points[i - 1].y - (line.points[i - 1].y - line.points[i].y) / 2;
                 renderText(renderer, ratio, y, line.points[i].x + 20, Sans);
             }
-            SDL_RenderDrawLine(renderer, line.points[i - 1].x, line.points[i - 1].y, line.points[i].x, line.points[i].y - 28);
-            SDL_RenderDrawLine(renderer, line.points[i].x - 10, line.points[i].y - 28, line.points[i].x + 10, line.points[i].y - 28);
+            SDL_RenderDrawLine(renderer, line.points[i - 1].x, line.points[i - 1].y, line.points[i].x, line.points[i].y);
+            SDL_RenderDrawLine(renderer, line.points[i].x - 10, line.points[i].y, line.points[i].x + 10, line.points[i].y);
         }
     }
     else {
@@ -223,6 +225,7 @@ void renderText(SDL_Renderer *renderer, int num, int y, int x, TTF_Font* Sans){
 }
 
 void tmpPoint(int x, int y){
+    y -= 28;
     if (line.finished) return;
     if (line.points.size() == 2){
         const int xLength = abs(line.points[0].x - x);
@@ -240,6 +243,7 @@ void tmpPoint(int x, int y){
 }
 
 void addPoint(int x, int y){
+    y -= 28;
     if (line.points.size() == 0)
         line.points.push_back(point(x, y));
     else if (line.dir == 0)
