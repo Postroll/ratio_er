@@ -4,8 +4,6 @@
 #include <vector>
 #include <SDL2/SDL_ttf.h>
 #include <string>
-#include <X11/Xlib.h>
-#include "X11/keysym.h"
 #include <unistd.h>
 
 void draw_rectangle_fill(SDL_Renderer* renderer, const SDL_Rect& rectangle, const SDL_Color& color);
@@ -35,33 +33,9 @@ class line {
 
 struct line line;
 
-bool key_is_pressed(KeySym ks) {
-    Display *dpy = XOpenDisplay(":0");
-    char keys_return[32];
-    XQueryKeymap(dpy, keys_return);
-    KeyCode kc2 = XKeysymToKeycode(dpy, ks);
-    bool isPressed = !!(keys_return[kc2 >> 3] & (1 << (kc2 & 7)));
-    XCloseDisplay(dpy);
-    return isPressed;
-}
-
-bool ctrl_is_pressed() {
-    return key_is_pressed(XK_Control_L) && key_is_pressed(XK_Shift_L);
-}
-
 int main(int argc, char* argv[])
 {
-    int flag = 0;
-    while (1){
-        int pressed = ctrl_is_pressed();
-        if (pressed && flag == 0){
-            flag = 1;
-            startRatioEr();
-        }
-        if (!pressed)
-            flag = 0;
-        usleep(50);
-    }
+    startRatioEr();
 }
 
 int startRatioEr(){
@@ -74,7 +48,7 @@ int startRatioEr(){
     SDL_Renderer* pRenderer{ nullptr };
     SDL_DisplayMode DM;
     TTF_Init();
-    TTF_Font* Sans = TTF_OpenFont("ttf/OpenSans-Bold.ttf", 100);
+    TTF_Font* Sans = TTF_OpenFont("/home/mlauro/Documents/ratio_er/ttf/OpenSans-Bold.ttf", 100);
     if (!Sans){
         SDL_DestroyRenderer(pRenderer);
         SDL_DestroyWindow(pWindow);
@@ -85,6 +59,7 @@ int startRatioEr(){
     auto Height = DM.h;
     int xMouse, yMouse;
     SDL_GetGlobalMouseState(&xMouse,&yMouse);
+
     addPoint(xMouse, yMouse);
     addPoint(xMouse, yMouse);
     

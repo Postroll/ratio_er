@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Ratio-er
+Comment=Ratio app
+Exec=/home/mlauro/Documents/ratio_er/bin/Ratio-er
+Icon=home/mlauro/Documents/ratio_er/ratio-er.png
+Terminal=false
+StartupNotify=false
+Actions=new-window;new-private-window;
